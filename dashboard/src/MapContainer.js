@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import socketIOClient from "socket.io-client";
 
 
 class MapContainer extends Component {
