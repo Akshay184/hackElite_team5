@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
+
 class MapContainer extends Component {
-    render() {
-        const locations = [
+    state = {
+        locations: [],
+    };
+
+    componentDidMount() {
+        // we can dynamically update it by using socket.io
+        const loc = [
             {
                 name: "Location 1",
                 location: {
-                    lat: 41.3954,
+                    lat: 44.3954,
                     lng: 2.162
                 },
             },
@@ -40,8 +46,10 @@ class MapContainer extends Component {
                 },
             }
         ];
+        this.setState({locations : loc});
+    }
 
-
+    render() {
         const mapStyles = {
             height: "100vh",
             width: "100%"
@@ -52,6 +60,7 @@ class MapContainer extends Component {
         }
 
         return (
+            <div>
             <LoadScript
                 googleMapsApiKey='AIzaSyDzCP5oMHWf1dNgcIdchURB1UP5t0mMt70'>
                 <GoogleMap
@@ -60,7 +69,7 @@ class MapContainer extends Component {
                     center={defaultCenter}
                 >
                     {
-                        locations.map(item => {
+                        this.state.locations.map(item => {
                             return (
                                 <Marker key={item.name} position={item.location} />
                             )
@@ -68,6 +77,7 @@ class MapContainer extends Component {
                     }
                 </GoogleMap>
             </LoadScript>
+            </div>
         );
     }
 }
