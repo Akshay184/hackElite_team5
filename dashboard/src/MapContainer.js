@@ -12,12 +12,18 @@ class MapContainer extends Component {
             locations: [],
         };
     }
+    changeMe(data) {
+        var arr = this.state.locations;
+        arr.push(data);
+        this.setState({ location: arr })
+        console.log(this.state.locations)
+    }
 
     componentDidMount() {
         // we can dynamically update it by using socket.io
         const { endpoint } = this.state;
         const socket = socketIOClient(endpoint);
-        socket.on("FromAPI", data => (this.setState({ locations: data }), console.log(data)));
+        socket.on("FromAPI", data => (this.changeMe(data)));
         // const loc = [
         //     {
         //         name: "Location 1",
@@ -65,7 +71,7 @@ class MapContainer extends Component {
         };
 
         const defaultCenter = {
-            lat: -6.4543, lng: 106.1527
+            lat: -7.1143, lng: 103.7527
         }
         return (
             <div>
@@ -73,7 +79,7 @@ class MapContainer extends Component {
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
                         mapContainerStyle={mapStyles}
-                        zoom={3}
+                        zoom={13}
                         center={defaultCenter}
                     >
                         {
