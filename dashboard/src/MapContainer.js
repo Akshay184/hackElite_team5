@@ -16,7 +16,7 @@ class MapContainer extends Component {
             unqiue_vehicle: [],
             hash_map: new Array(1000).fill(new Array()),
             show: false,
-            cur: {}
+            cur: {},
         };
     }
     async changeMe(data) {
@@ -95,6 +95,10 @@ class MapContainer extends Component {
         console.log(this.state.show);
     };
 
+    visibilityChangeHandler = () => {
+        console.log("visibility");
+    }
+
     render() {
 
         const mapStyles = {
@@ -165,7 +169,7 @@ class MapContainer extends Component {
                             this.state.locations.map(item => {
                                 return (
                                     <Marker key={item.bus_code} position={item.location} onClick={() => this.showHandler(item)} />
-                                )
+                                    )
                             })
 
                         }
