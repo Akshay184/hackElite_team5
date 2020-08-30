@@ -8,6 +8,7 @@ const app = express();
 app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server); // < Interesting!
+temp = 0.0100;
 const getApiAndEmit = async socket => {
     try {
         // const res = await axios.get(
@@ -15,12 +16,22 @@ const getApiAndEmit = async socket => {
         // ); // Getting the data from DarkSky
         // socket.emit("FromAPI", res.data.currently.temperature); // Emitting a new message. It will be consumed by the client
         console.log("rishi");
-        temp = 0.01;
+        temp += 0.0001  ;
+        console.log(temp);
         socket.emit("FromAPI", [{
             name: "Location 1",
             location: {
-                lat: 44.3954 + temp,
-                lng: 2.162 + temp
+                busCode: "DMR 5049",
+                tridId: 5.1222,
+                gpsDateTime: 9,
+                location: 2,    
+                dtd: 0.2312,
+                corridor: 9,
+                lat: 41.363998 + temp,
+                lng: 2.167493 + temp,
+                speed: 0,
+                course: 808,
+                color: "MERAH KUNING"
             },
         }]); // Emitting a new message. It will be consumed by the client
 
@@ -32,7 +43,7 @@ const getApiAndEmit = async socket => {
 io.on("connection", socket => {
     console.log("New client connected"), setInterval(
         () => getApiAndEmit(socket),
-        10000
+        1000
     );
     socket.on("disconnect", () => console.log("Client disconnected"));
 });
