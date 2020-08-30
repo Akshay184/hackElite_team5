@@ -85,6 +85,16 @@ class MapContainer extends Component {
 
 
 
+    showHandler = (data) => {
+        this.setState({ show: true, cur: data });
+    };
+
+    hideHandler = () => {
+        this.setState({ show: false, cur: {}});
+        console.log("rfd");
+        console.log(this.state.show);
+    };
+
     render() {
 
         const mapStyles = {
@@ -122,6 +132,7 @@ class MapContainer extends Component {
                         mapContainerStyle={mapStyles}
                         zoom={10}
                         center={defaultCenter}
+
                     >
 
                         {/* {
@@ -156,7 +167,9 @@ class MapContainer extends Component {
                                     <Marker key={item.bus_code} position={item.location} onClick={() => this.showHandler(item)} />
                                 )
                             })
+
                         }
+
                     </GoogleMap>
                 </LoadScript>
             </div>

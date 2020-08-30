@@ -22,7 +22,7 @@ const hover = (props) => {
 
             <p>
                 <span>dtd :</span>
-                <span>{props.dtd}</span>
+                <span>{props.dtd }</span>
                 &nbsp;&nbsp;&nbsp;
                 <span>Speed :</span>
                 <span>{props.speed}</span>
@@ -35,9 +35,9 @@ const hover = (props) => {
                 <span>Latitude :</span>
                 <span>{props.lat}</span>
             </p>
-            <button className='btn' onClick={props.clicked}>Close</button>
+            <button className = 'btn' onClick = {props.clicked}>Close</button>
         </div>
     );
 }
 
-export default hover; 
+export default hover;
