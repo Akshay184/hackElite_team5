@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GoogleMap, LoadScript, Marker, Polyline } from '@react-google-maps/api';
 import socketIOClient from "socket.io-client";
 import Hover from '../src/Hover';
+import MultiSelect from '../src/MultiSelect';
 const google = window.google;
 
 class MapContainer extends Component {
@@ -15,7 +16,7 @@ class MapContainer extends Component {
             unqiue_vehicle: [],
             hash_map: new Array(1000).fill(new Array(0)),
             show: false,
-            cur: {}
+            cur: {},
         };
     }
     changeMe(data) {
@@ -32,7 +33,7 @@ class MapContainer extends Component {
 
         if (flag == 0) {
             var new_vehicle = temp.length;
-            console.log(new_vehicle);
+            // console.log(new_vehicle);
             index = new_vehicle;
             temp.push({ "value": data["bus_code"], "index": new_vehicle })
         }
@@ -47,7 +48,7 @@ class MapContainer extends Component {
         var new_location = [];
         for (var i = 0; i < temp.length; i++) {
             var da = whole_map[i][whole_map[i].length - 1];
-            console.log(da)
+            // console.log(da)
             new_location.push(da);
         }
 
@@ -120,6 +121,10 @@ class MapContainer extends Component {
         console.log(this.state.show);
     };
 
+    visibilityChangeHandler = () => {
+        console.log("visibility");
+    }
+
     render() {
         const mapStyles = {
             height: "100vh",
@@ -144,6 +149,10 @@ class MapContainer extends Component {
                         clicked={this.hideHandler}
                     /> : null
                 }
+                <MultiSelect
+                    data = {this.state.unqiue_vehicle}
+                    changed = {this.visibilityChangeHandler}
+                 />
                 <LoadScript
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
@@ -159,7 +168,7 @@ class MapContainer extends Component {
                                 for (var i = 0; i < item.length; i++) {
                                     log.push(item[0].location);
                                 }
-                                console.log(log);
+                                // console.log(log);
                                 return (
                                     <Polyline
                                         path={log}
@@ -185,7 +194,7 @@ class MapContainer extends Component {
                             this.state.locations.map(item => {
                                 return (
                                     <Marker key={item.bus_code} position={item.location} onClick={() => this.showHandler(item)} />
-                                )
+                                    )
                             })
 
                         }
