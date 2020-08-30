@@ -47,7 +47,7 @@ class MapContainer extends Component {
                 },
             }
         ];
-        this.setState({locations : loc});
+        this.setState({ locations: loc });
     }
 
     render() {
@@ -61,7 +61,6 @@ class MapContainer extends Component {
         }
         return (
             <div>
-<<<<<<< HEAD
                 <LoadScript
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
@@ -78,24 +77,6 @@ class MapContainer extends Component {
                         }
                     </GoogleMap>
                 </LoadScript>
-=======
-            <LoadScript
-                googleMapsApiKey='AIzaSyDzCP5oMHWf1dNgcIdchURB1UP5t0mMt70'>
-                <GoogleMap
-                    mapContainerStyle={mapStyles}
-                    zoom={13}
-                    center={defaultCenter}
-                >
-                    {
-                        this.state.locations.map(item => {
-                            return (
-                                <Marker key={item.name} position={item.location} />
-                            )
-                        })
-                    }
-                </GoogleMap>
-            </LoadScript>
->>>>>>> 375c904322984e0885476b2d6c98e9605ca5e705
             </div>
         );
     }
