@@ -14,12 +14,12 @@ class MapContainer extends Component {
             endpoint: "http://127.0.0.1:4001",
             locations: [],
             unqiue_vehicle: [],
-            hash_map: new Array(1000).fill(new Array(0)),
+            hash_map: new Array(1000).fill(new Array()),
             show: false,
             cur: {},
         };
     }
-    changeMe(data) {
+    async changeMe(data) {
         var flag = 0;
         var index = 0;
         for (var x of this.state.unqiue_vehicle) {
@@ -40,19 +40,26 @@ class MapContainer extends Component {
 
         var whole_map = this.state.hash_map;
         // console.log(typeof this.state.hash_map)
-        var copy_vehicle = whole_map[index];
+        // numbersCopy = JSON.parse(JSON.stringify(nestedNumbers));
+        var copy_vehicle = JSON.parse(JSON.stringify(whole_map[index]));
         copy_vehicle.push(data);
-        whole_map[index] = copy_vehicle;
+        whole_map[index] = JSON.parse(JSON.stringify(copy_vehicle));
         // console.log(temp);
         // console.log(whole_map)
         var new_location = [];
+        // console.log(temp);
+
         for (var i = 0; i < temp.length; i++) {
+            // console.log(i);
             var da = whole_map[i][whole_map[i].length - 1];
             // console.log(da)
+            console.log(da)
             new_location.push(da);
         }
+        console.log(new_location);
 
-        this.setState({ locations: new_location, unqiue_vehicle: temp, hash_map: whole_map })
+        await this.setState({ locations: new_location, unqiue_vehicle: temp, hash_map: whole_map })
+        console.log(this.state.hash_map)
         // console.log(this.state.locations)
     }
 
@@ -61,44 +68,7 @@ class MapContainer extends Component {
         const { endpoint } = this.state;
         const socket = socketIOClient(endpoint);
         socket.on("FromAPI", data => (this.changeMe(data)));
-        // const loc = [
-        //     {
-        //         name: "Location 1",
-        //         location: {
-        //             lat: 44.3954,
-        //             lng: 2.162
-        //         },
-        //     },
-        //     {
-        //         name: "Location 2",
-        //         location: {
-        //             lat: 41.3917,
-        //             lng: 2.1649
-        //         },
-        //     },
-        //     {
-        //         name: "Location 3",
-        //         location: {
-        //             lat: 41.3773,
-        //             lng: 2.1585
-        //         },
-        //     },
-        //     {
-        //         name: "Location 4",
-        //         location: {
-        //             lat: 41.3797,
-        //             lng: 2.1682
-        //         },
-        //     },
-        //     {
-        //         name: "Location 5",
-        //         location: {
-        //             lat: 41.4055,
-        //             lng: 2.1915
-        //         },
-        //     }
-        // ];
-        // this.setState({ locations: loc });
+
     }
     showHandler = (data) => {
         this.setState({ show: true, cur: data });
@@ -109,6 +79,10 @@ class MapContainer extends Component {
         console.log("rfd");
         console.log(this.state.show);
     };
+    visibilityChangeHandler = () => {
+        console.log("visibility");
+    }
+
 
 
     showHandler = (data) => {
@@ -126,10 +100,13 @@ class MapContainer extends Component {
     }
 
     render() {
+
         const mapStyles = {
             height: "100vh",
             width: "100%"
         };
+
+
 
         const defaultCenter = {
             lat: -6.1143, lng: 106.8927
@@ -150,9 +127,9 @@ class MapContainer extends Component {
                     /> : null
                 }
                 <MultiSelect
-                    data = {this.state.unqiue_vehicle}
-                    changed = {this.visibilityChangeHandler}
-                 />
+                    data={this.state.unqiue_vehicle}
+                    changed={this.visibilityChangeHandler}
+                />
                 <LoadScript
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
@@ -161,34 +138,32 @@ class MapContainer extends Component {
                         center={defaultCenter}
 
                     >
-                        {
+
+                        {/* {
                             this.state.hash_map.map(item => {
 
-                                let log = [];
-                                for (var i = 0; i < item.length; i++) {
-                                    log.push(item[0].location);
-                                }
-                                   // console.log(log);
+                                // console.log(this.state.hash_map)
+                                // let logo = [];
+                                // console.log(item);
+                                // for (var i = 0; i < item.length; i++) {
+                                //     logo.push(item[i].location);
+                                // }
+                                // console.log(log);
                                 return (
                                     <Polyline
-                                        path={log}
-                                        geodesic={true}
-                                        options={{
-                                            strokeColor: "#ff2527",
-                                            strokeOpacity: 0.75,
-                                            strokeWeight: 2,
-                                            icons: [
-                                                {
-                                                    // icon: lineSymbol,
-                                                    offset: "0",
-                                                    repeat: "20px"
-                                                }
-                                            ]
-                                        }}
+                                        coordinates={[{ lat: -6.23453, lng: 106.78546 }, { lat: -6.23453, lng: 106.76546 }, { lat: -6.23453, lng: 106.77546 }, { lat: -6.23453, lng: 106.79546 }]}
+                                        style="5px solid orange"
+
                                     />
                                 )
                             })
-                        }
+                        } */}
+
+                        {/* <Polyline
+                            path={triangleCoords}
+                            strokeColor="#0000FF"
+                            strokeOpacity={0.8}
+                            strokeWeight={2} /> */}
 
                         {
                             this.state.locations.map(item => {
