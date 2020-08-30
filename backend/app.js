@@ -142,7 +142,7 @@ const getApiAndEmit = async socket => {
 io.on("connection", socket => {
     console.log("New client connected"), setInterval(
         () => getApiAndEmit(socket),
-        1000
+        100
     );
     socket.on("disconnect", () => console.log("Client disconnected"));
 });
