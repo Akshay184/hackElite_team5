@@ -65,16 +65,15 @@ class MapContainer extends Component {
         };
 
         const defaultCenter = {
-            lat: 41.3851, lng: 2.1734
+            lat: -6.4543, lng: 106.1527
         }
-
         return (
             <div>
                 <LoadScript
-                    googleMapsApiKey='AIzaSyDzCP5oMHWf1dNgcIdchURB1UP5t0mMt70'>
+                    googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
                         mapContainerStyle={mapStyles}
-                        zoom={13}
+                        zoom={5}
                         center={defaultCenter}
                     >
                         {
@@ -92,3 +91,4 @@ class MapContainer extends Component {
 }
 
 export default MapContainer;
+
