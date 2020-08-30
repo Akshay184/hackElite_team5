@@ -168,7 +168,7 @@ class MapContainer extends Component {
                                 for (var i = 0; i < item.length; i++) {
                                     log.push(item[0].location);
                                 }
-                                // console.log(log);
+                                   // console.log(log);
                                 return (
                                     <Polyline
                                         path={log}
