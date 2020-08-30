@@ -73,7 +73,7 @@ class MapContainer extends Component {
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
                         mapContainerStyle={mapStyles}
-                        zoom={}
+                        zoom={3}
                         center={defaultCenter}
                     >
                         {

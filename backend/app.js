@@ -117,7 +117,7 @@ const getApiAndEmit = async socket => {
         await dbo.collection("vehicle_data").findOne({ index: i }, function (err, doc) {
             if (err) throw err;
             result = doc;
-            socket.emit("FromAPI", [result]);
+            socket.emit("FromAPI", result);
             console.log(result);
             // db.close();
         });
