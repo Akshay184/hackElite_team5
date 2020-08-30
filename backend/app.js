@@ -18,7 +18,6 @@ var url = "mongodb://localhost:27017/";
 
 // require("./Vehicle");
 // const mongodb = require("mongodb").MongoClient;
-// let url = "mongodb://localhost:27017/";
 
 // const fs = require('fs');
 // var csvfile = __dirname + "/data.csv";

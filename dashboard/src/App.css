@@ -28,6 +28,30 @@
   color: #61dafb;
 }
 
+.Hover {
+  position: absolute;
+  z-index: 100000;
+  background-color: white;
+  opacity: 0.6;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.btn{
+  text-align: center;
+  margin-left: 70px;
+  background-color: white;
+  outline: none;
+  border: 3px solid black;
+  border-radius: 7px;
+  text-transform: uppercase;
+  padding: 8px;
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +60,4 @@
     transform: rotate(360deg);
   }
 }
+
