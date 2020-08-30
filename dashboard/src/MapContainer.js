@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import socketIOClient from "socket.io-client";
 
-
 class MapContainer extends Component {
-    state = {
-        locations: [],
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            response: false,
+            endpoint: "http://127.0.0.1:4001",
+            locations: [],
+        };
+    }
 
     componentDidMount() {
         // we can dynamically update it by using socket.io
