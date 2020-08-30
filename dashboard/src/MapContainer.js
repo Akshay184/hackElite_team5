@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import socketIOClient from "socket.io-client";
+import Hover from '../src/Hover';
 
 class MapContainer extends Component {
 
@@ -10,50 +11,27 @@ class MapContainer extends Component {
             response: false,
             endpoint: "http://127.0.0.1:4001",
             locations: [],
+            show: false,
+            cur: {}
         };
     }
 
     componentDidMount() {
         // we can dynamically update it by using socket.io
-        const loc = [
-            {
-                name: "Location 1",
-                location: {
-                    lat: 44.3954,
-                    lng: 2.162
-                },
-            },
-            {
-                name: "Location 2",
-                location: {
-                    lat: 41.3917,
-                    lng: 2.1649
-                },
-            },
-            {
-                name: "Location 3",
-                location: {
-                    lat: 41.3773,
-                    lng: 2.1585
-                },
-            },
-            {
-                name: "Location 4",
-                location: {
-                    lat: 41.3797,
-                    lng: 2.1682
-                },
-            },
-            {
-                name: "Location 5",
-                location: {
-                    lat: 41.4055,
-                    lng: 2.1915
-                },
-            }
-        ];
-        this.setState({ locations: loc });
+        const { endpoint } = this.state;
+        const socket = socketIOClient(endpoint);
+        socket.on("FromAPI", data => (this.setState({ locations: data })));
     }
+
+    showHandler = (data) => {
+        this.setState({ show: true, cur: data });
+    };
+
+    hideHandler = () => {
+        this.setState({ show: false, cur: {}});
+        console.log("rfd");
+        console.log(this.state.show);
+    };
 
     render() {
         const mapStyles = {
@@ -66,20 +44,42 @@ class MapContainer extends Component {
         }
         return (
             <div>
+                {this.state.show ?
+                    <Hover
+                        bus_code = {this.state.cur.bus_code}
+                        color = {this.state.cur.color}
+                        corridor = {this.state.cur.corridor}
+                        course = {this.state.cur.course}
+                        dtd = {this.state.cur.dtd}
+                        speed = {this.state.cur.speed}
+                        lat = {this.state.cur.location.lat}
+                        log = {this.state.cur.location.lng}
+                        clicked = {this.hideHandler}
+                     /> : null
+                }
                 <LoadScript
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
                         mapContainerStyle={mapStyles}
                         zoom={5}
                         center={defaultCenter}
+
                     >
                         {
                             this.state.locations.map(item => {
                                 return (
-                                    <Marker key={item.name} position={item.location} />
+                                    <Marker key={item.name}
+                                        position={item.location}
+                                        onClick={() => this.showHandler(item)}
+
+                                    >
+                                    </Marker>
+
                                 )
                             })
+
                         }
+
                     </GoogleMap>
                 </LoadScript>
             </div>
