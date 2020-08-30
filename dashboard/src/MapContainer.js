@@ -15,44 +15,47 @@ class MapContainer extends Component {
 
     componentDidMount() {
         // we can dynamically update it by using socket.io
-        const loc = [
-            {
-                name: "Location 1",
-                location: {
-                    lat: 44.3954,
-                    lng: 2.162
-                },
-            },
-            {
-                name: "Location 2",
-                location: {
-                    lat: 41.3917,
-                    lng: 2.1649
-                },
-            },
-            {
-                name: "Location 3",
-                location: {
-                    lat: 41.3773,
-                    lng: 2.1585
-                },
-            },
-            {
-                name: "Location 4",
-                location: {
-                    lat: 41.3797,
-                    lng: 2.1682
-                },
-            },
-            {
-                name: "Location 5",
-                location: {
-                    lat: 41.4055,
-                    lng: 2.1915
-                },
-            }
-        ];
-        this.setState({ locations: loc });
+        const { endpoint } = this.state;
+        const socket = socketIOClient(endpoint);
+        socket.on("FromAPI", data => (this.setState({ locations: data }), console.log(data)));
+        // const loc = [
+        //     {
+        //         name: "Location 1",
+        //         location: {
+        //             lat: 44.3954,
+        //             lng: 2.162
+        //         },
+        //     },
+        //     {
+        //         name: "Location 2",
+        //         location: {
+        //             lat: 41.3917,
+        //             lng: 2.1649
+        //         },
+        //     },
+        //     {
+        //         name: "Location 3",
+        //         location: {
+        //             lat: 41.3773,
+        //             lng: 2.1585
+        //         },
+        //     },
+        //     {
+        //         name: "Location 4",
+        //         location: {
+        //             lat: 41.3797,
+        //             lng: 2.1682
+        //         },
+        //     },
+        //     {
+        //         name: "Location 5",
+        //         location: {
+        //             lat: 41.4055,
+        //             lng: 2.1915
+        //         },
+        //     }
+        // ];
+        // this.setState({ locations: loc });
     }
 
     render() {
@@ -70,7 +73,7 @@ class MapContainer extends Component {
                     googleMapsApiKey='AIzaSyDC45FCSbYMvnKlnEpbc2jhYFkBvi3DZq8'>
                     <GoogleMap
                         mapContainerStyle={mapStyles}
-                        zoom={5}
+                        zoom={}
                         center={defaultCenter}
                     >
                         {
