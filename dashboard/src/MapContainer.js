@@ -3,6 +3,9 @@ import { GoogleMap, LoadScript, Marker, Polyline } from '@react-google-maps/api'
 import socketIOClient from "socket.io-client";
 import Hover from '../src/Hover';
 import MultiSelect from '../src/MultiSelect';
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+
 const google = window.google;
 
 class MapContainer extends Component {
@@ -19,6 +22,26 @@ class MapContainer extends Component {
             cur: {}
         };
     }
+    createNotification = (type) => {
+        return () => {
+            switch (type) {
+                case 'info':
+                    NotificationManager.info('Info message');
+                    break;
+                case 'success':
+                    NotificationManager.success('Success message', 'Title here');
+                    break;
+                case 'warning':
+                    NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+                    break;
+                case 'error':
+                    NotificationManager.error('Error message', 'Click me!', 5000, () => {
+                        alert('callback');
+                    });
+                    break;
+            }
+        };
+    };
     async changeMe(data) {
         var flag = 0;
         var index = 0;
@@ -90,7 +113,7 @@ class MapContainer extends Component {
     };
 
     hideHandler = () => {
-        this.setState({ show: false, cur: {}});
+        this.setState({ show: false, cur: {} });
         console.log("rfd");
         console.log(this.state.show);
     };
@@ -135,36 +158,29 @@ class MapContainer extends Component {
 
                     >
 
-                        {/* {
-                            this.state.hash_map.map(item => {
-
-                                // console.log(this.state.hash_map)
-                                // let logo = [];
-                                // console.log(item);
-                                // for (var i = 0; i < item.length; i++) {
-                                //     logo.push(item[i].location);
-                                // }
-                                // console.log(log);
+                        {
+                            this.state.unqiue_vehicle.map(vehicle => {
+                                var index = vehicle["index"];
+                                // var color = randomColor();
+                                var loc = [];
+                                for (var i = 0; i < this.state.hash_map[index].length; i++) {
+                                    loc.push(this.state.hash_map[index][i].location)
+                                }
                                 return (
                                     <Polyline
-                                        coordinates={[{ lat: -6.23453, lng: 106.78546 }, { lat: -6.23453, lng: 106.76546 }, { lat: -6.23453, lng: 106.77546 }, { lat: -6.23453, lng: 106.79546 }]}
-                                        style="5px solid orange"
-
-                                    />
+                                        path={loc}
+                                        strokeColor={"#989700"}
+                                        strokeOpacity={0.2}
+                                        strokeWeight={1} />
                                 )
                             })
-                        } */}
-
-                        {/* <Polyline
-                            path={triangleCoords}
-                            strokeColor="#0000FF"
-                            strokeOpacity={0.8}
-                            strokeWeight={2} /> */}
+                        }
 
                         {
                             this.state.locations.map(item => {
+                                this.createNotification('info');
                                 return (
-                                    <Marker key={item.bus_code} position={item.location} onClick={() => this.showHandler(item)} />
+                                    <Marker key={item.bus_code} position={item.location} title={item.bus_code} onClick={() => this.showHandler(item)} />
                                 )
                             })
 

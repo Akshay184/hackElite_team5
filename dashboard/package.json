@@ -10,7 +10,9 @@
     "google-maps-react": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hooks": "^1.0.1",
     "react-multi-select-component": "^3.0.1",
+    "react-notifications": "^1.6.0",
     "react-polyline": "^1.0.0",
     "react-scripts": "3.4.3"
   },
