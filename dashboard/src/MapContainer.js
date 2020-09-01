@@ -19,7 +19,7 @@ class MapContainer extends Component {
             unqiue_vehicle: [],
             hash_map: new Array(1000).fill(new Array()),
             show: false,
-            cur: {}
+            cur: {},
         };
     }
     createNotification = (type) => {
@@ -117,6 +117,10 @@ class MapContainer extends Component {
         console.log("rfd");
         console.log(this.state.show);
     };
+
+    visibilityChangeHandler = () => {
+        console.log("visibility");
+    }
 
     render() {
 
